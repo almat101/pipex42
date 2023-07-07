@@ -6,7 +6,7 @@
 /*   By: amatta <amatta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:57:33 by amatta            #+#    #+#             */
-/*   Updated: 2023/07/07 12:38:02 by amatta           ###   ########.fr       */
+/*   Updated: 2023/07/07 13:10:36 by amatta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv, char **env)
 		i = 0;
 		if (piping.cpid2 == 0)
 			child_process2(piping, i, env);
+		waitpid(piping.cpid2, NULL, 0);
 		ft_free_struct(&piping);
 	}
 	else
