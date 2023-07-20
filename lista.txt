@@ -1,5 +1,0 @@
-cane
-cavallo
-gatto
-re
-regina

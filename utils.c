@@ -6,7 +6,7 @@
 /*   By: amatta <amatta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:46:15 by amatta            #+#    #+#             */
-/*   Updated: 2023/07/07 12:37:22 by amatta           ###   ########.fr       */
+/*   Updated: 2023/07/20 11:48:41 by amatta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_free_struct(t_pipex *piping)
 	ft_free(piping->all_paths);
 }
 
-void	child_process1(t_pipex piping, int i, char **env)
+void	child_process1(t_pipex piping, char **env, int i)
 {
 	char	*temp;
 
@@ -60,7 +60,7 @@ void	child_process1(t_pipex piping, int i, char **env)
 	exit(1);
 }
 
-void	child_process2(t_pipex piping, int i, char **env)
+void	child_process2(t_pipex piping, char **env, int i)
 {
 	char	*temp;
 

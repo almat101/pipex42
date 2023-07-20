@@ -6,7 +6,7 @@
 /*   By: amatta <amatta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 11:52:37 by amatta            #+#    #+#             */
-/*   Updated: 2023/07/07 12:36:40 by amatta           ###   ########.fr       */
+/*   Updated: 2023/07/20 11:48:11 by amatta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ typedef struct s_pipex
 	char	*real_path;
 }	t_pipex;
 
-void	child_process1(t_pipex piping, int i, char **env);
-void	child_process2(t_pipex piping, int i, char **env);
+void	child_process1(t_pipex piping, char **env, int i);
+void	child_process2(t_pipex piping, char **env, int i);
+void	piping_fork1(t_pipex *piping, char **env, int i);
+void	piping_fork2(t_pipex *piping, char **env, int i);
 void	init_struct(t_pipex *piping, char **argv, char **env, int i);
 void	put_error(char *s);
 void	ft_free(char **split);

@@ -6,7 +6,7 @@
 /*   By: amatta <amatta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 12:57:33 by amatta            #+#    #+#             */
-/*   Updated: 2023/07/07 13:10:36 by amatta           ###   ########.fr       */
+/*   Updated: 2023/07/20 11:51:19 by amatta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,30 @@ void	init_struct(t_pipex *piping, char **argv, char **env, int i)
 	piping->all_paths[0] = ft_strtrim(piping->all_paths[0], "PATH=");
 }
 
+void	piping_fork1(t_pipex *piping, char **env, int i)
+{
+	piping->cpid1 = fork();
+	if (piping->cpid1 == -1)
+		put_error("Fork error");
+	i = 0;
+	if (piping->cpid1 == 0)
+		child_process1(*piping, env, i);
+	waitpid(piping->cpid1, NULL, 0);
+}
+
+void	piping_fork2(t_pipex *piping, char **env, int i)
+{
+	piping->cpid2 = fork();
+	if (piping->cpid2 == -1)
+		put_error("Fork error");
+	i = 0;
+	if (piping->cpid2 == 0)
+		child_process2(*piping, env, i);
+	close(piping->pipefd[0]);
+	close(piping->pipefd[1]);
+	waitpid(piping->cpid2, NULL, 0);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	piping;
@@ -39,20 +63,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		i = 0;
 		init_struct(&piping, argv, env, i);
-		piping.cpid1 = fork();
-		if (piping.cpid1 == -1)
-			put_error("Fork error");
-		i = 0;
-		if (piping.cpid1 == 0)
-			child_process1(piping, i, env);
-		waitpid(piping.cpid1, NULL, 0);
-		piping.cpid2 = fork();
-		if (piping.cpid2 == -1)
-			put_error("Fork error");
-		i = 0;
-		if (piping.cpid2 == 0)
-			child_process2(piping, i, env);
-		waitpid(piping.cpid2, NULL, 0);
+		piping_fork1(&piping, env, i);
+		piping_fork2(&piping, env, i);
 		ft_free_struct(&piping);
 	}
 	else
